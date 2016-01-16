@@ -14,13 +14,23 @@
                     height: 1cm;
                 }
             }
+            h1 {
+            	font-size: 20pt;
+            }
         </style>
     </head>
     <body>
         <div>
-            {% for item in mylist %}
-                RENDER MY CONTENT
-            {% endfor %}
+            <h1>{{ data.header }}</h1>
+			{{ data.group }}
+			{% for item in data.groups %}
+				<h2>{{ item.group.subheader }}</h2>
+				<ul>
+					{% for question_item in item.group.key %}
+					<li>{{ question_item.question.text }} <br/> <span style="color: #777777">{{ question_item.question.answer }}</span></li>
+					{% endfor %}
+				</ul>			
+			{% endfor %}	
         </div>
         <div id="footerContent">
             {%block page_foot%}

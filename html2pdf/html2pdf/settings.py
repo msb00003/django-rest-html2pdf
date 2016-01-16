@@ -52,21 +52,10 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'html2pdf.urls'
 
-import os
-
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
-
-MEDIA_ROOT = PROJECT_PATH + '/media/'
-
-TEMPLATE_DIRS = (
-    PROJECT_PATH + '\\templates\\',
-)
-
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIRS],
+        'DIRS': ['/home/ec2-user/django-rest-html2pdf/html2pdf/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

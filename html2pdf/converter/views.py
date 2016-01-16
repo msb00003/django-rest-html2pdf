@@ -1,4 +1,10 @@
-from io import StringIO
+try:
+    import cStringIO as StringIO
+except ImportError:
+    try:
+        import StringIO as StringIO
+    except ImportError:
+        from io import StringIO as StringIO
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.template import Context
@@ -7,7 +13,6 @@ from cgi import escape
 
 
 def render_to_pdf(template_src, context_dict):
-    import pdb; pdb.set_trace()
     template = get_template(template_src)
     context = Context(context_dict)
     html  = template.render(context)
@@ -19,15 +24,8 @@ def render_to_pdf(template_src, context_dict):
     return HttpResponse('We had some errors<pre>%s</pre>' % escape(html))
 
 from django.http import HttpResponse
+import json as json2
 
-
-def index(request):
-    results=[]
-    return render_to_pdf(
-                'mytemplate.html',
-                {
-                    'pagesize':'A4',
-                    'mylist': results,
-                }
-        )
-    
+def index(request, json):
+    json = json2.loads(json)
+    return render_to_pdf('mytemplate.html', json)
