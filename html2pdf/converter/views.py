@@ -25,7 +25,16 @@ def render_to_pdf(template_src, context_dict):
 
 from django.http import HttpResponse
 import json as json2
+from django.views.decorators.csrf import csrf_exempt
+from kitchen.text.converters import to_unicode, to_bytes
 
-def index(request, json):
-    json = json2.loads(json)
-    return render_to_pdf('mytemplate.html', json)
+@csrf_exempt
+def index(request):
+	if request.method == 'POST':
+		#body_unicode = request.body.encode('latin-1', 'ignore') 
+		#body_unicode = body_unicode.decode('utf-8')
+		#import pdb;pdb.set_trace()
+		#print(request.body.decode('unicode_escape').encode('ascii','ignore'))
+		json = json2.loads(request.body.decode('unicode_escape').encode('ascii','ignore'))
+
+		return render_to_pdf('mytemplate.html', json)

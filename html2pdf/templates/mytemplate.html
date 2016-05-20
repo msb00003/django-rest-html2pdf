@@ -21,15 +21,16 @@
     </head>
     <body>
         <div>
-            <h1>{{ data.header }}</h1>
-			{% for item in data.groups %}	
-				{% for group_item in item %}
-					<h2>group_item["group"]["subheader"]</h2>
-					{% for set_item in group_item["group"]["sets"] %}
-						<h3>{{ set_item["group_name"] }}</h3>
-						<ul>						
-						{% for value in set_item["values"] %}
-							<li>{{ value.question.text }}<span style="color: #777777">{{ value.answer }}</span></li>
+			<h1>{{ data.document_title }}</h1>
+			{% for type in data.types %}
+				<h2>{{ type.type_name}}</h2>
+				{% for group in type.groups %}
+					<h3>{{ group.group_name }}</h3>
+					{% for set in group.sets %}
+						<h4>{{ set.set_name }}</h4>
+						<ul>
+						{% for question in set.questions %}
+							<li>{{ question.text }}<br/> <span style="color: #777777">{{ question.answer }}
 						{% endfor %}
 						</ul>
 					{% endfor %}
